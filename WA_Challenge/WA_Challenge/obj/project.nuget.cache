@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jpVqXd4l7sfQQveewRwf6elFntJ+P85H1IFqYTcmXFDprcPMe+XXUd3LJGzGc79/KFCI4gYTDbHC5RzPR/vhdw==",
+  "dgSpecHash": "yKQycp0hmkYuppufpDIppi8T24a7JTwcj16DQu16Hdaez+roZBVmCNoCWeaaYmWCumc13BAUqRNdoRYmRlMi5Q==",
   "success": true,
-  "projectFilePath": "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
+  "projectFilePath": "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TUAREG\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\TUAREG\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
