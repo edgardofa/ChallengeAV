@@ -14,12 +14,11 @@
     </div>
 
     <div class="row pt-2">
-        <div class="col-lg-6">
-            <div class="card table-bordered" style="height: 20rem;">
-                <div class="card-header align-content-center" style="height: 3rem;">
-                    <p class="text-center">Selecciona la zona</p>
-                </div>
+        <div class="col-lg-6 col-sm-12">
+            <div class="card " style="height: 18.5rem;">
                 <div class="card-body">
+                    <h5 class="card-title text-lg-center text-md-center text-sm-left">Seleccioná la zona</h5>
+                    <hr class="underline" />
                     <form method="post" asp-area="" asp-controller="Home" asp-action="ConsultarClima">
                         <div class="row">
                             @Html.Label("NombrePais", "País")
@@ -51,76 +50,54 @@
                             <select name="ciudades" class="form-control mw-100 w-100 border-select top-10" id="ciudades" selected="selected">
                             </select><br />
                         </div>
-                        <br />
                         <div class="text-center pt-lg-0">
-                            <input class="btn btn-primary btn-block text-white" style="background-color:coral" type="submit" asp-action="ConsultarClima" asp-controller="Home" asp-route-id="ciudades" value="Buscar" />
+                            <input class="btn btn-primary btn-block text-white" style="background-color:coral;margin-top:0.5rem; margin-bottom:0.25rem" 
+                                   type="submit" asp-action="ConsultarClima" asp-controller="Home" asp-route-id="ciudades" value="Buscar" />
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-sm-12">
             @if (!string.IsNullOrEmpty(Model.Ident_CiudadSelect))
             {
-                <div class="card table-bordered " style="height: 18rem;">
-                    <div class="card-header justify-content-lg-center" style="height: 3rem;">
-                        <p class="text-center">Reporte del día</p>
-                    </div>
-
+                <div class="card" style="height: 18.5rem;">
                     <div class="card-body">
+                        <h5 class="card-title text-lg-center text-md-center text-sm-left">Reporte del día</h5>
+                        <hr class="underline" />
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="row">
-                                    <label class="align-content-lg-start" style="font-size:small">@Model.DescripPais</label>
-                                </div>
-                                <div class="row">
-                                    <label class="align-content-lg-start" style="font-size:small">@Model.DescripCiudad</label>
-                                </div>
+                                <h6 class="card-text text-left .small"><small>@Model.DescripPais</small></h6>
+                                <h6 class="card-text text-left"><small>@Model.DescripCiudad</small></h6>
                                 @if (Model.ReporteDelDia != null)
                                 {
-                                    <div class="row">
-                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.NombreDelDia</label>
-                                    </div>
-                                    <div class="row">
-                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.DescripClima</label>
-                                    </div>
-                                    <div class="form-inline">
-                                        <label class="align-content-lg-start" style="font-size:x-large">@Model.ReporteDelDia.TemperaturaC.ToString()</label>
-                                        <label class="align-content-lg-start" style="font-size:small"> °C</label>
-                                    </div>
-                                    <div class="form-inline">
-                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.TemperaturaF.ToString()</label>
-                                        <label class="align-content-lg-start" style="font-size:small"> °F</label>
-                                    </div>
+                                    <h3 class="card-text text-left">@Model.ReporteDelDia.NombreDelDia</h3>
+                                    <h5 class="card-text text-left">@Model.ReporteDelDia.DescripClima</h5>
+                                    <div class="container">
+                                        <div class="row">
+                                            <h1 class="card-text align-self-center"><strong>@Model.ReporteDelDia.TemperaturaC.ToString()</strong> </h1>
+                                            <h6 class="card-text align-self-start" style="margin-top:0.25rem" >°C</h6>
+                                        </div>
+                                    </div>                                    
+                                    <small class="text-muted">@Model.ReporteDelDia.TemperaturaF °F</small>
                                 }
                             </div>
-
                             <div class="col-lg-6">
                                 @if (Model.ReporteDelDia != null)
                                 {
-                                    <div>
-                                        @if (!string.IsNullOrEmpty(Model.ReporteDelDia.UrlImagen))
-                                        {
-                                            <img class="img-rounded" alt="@Model.ReporteDelDia.DescripClima" src="@Model.ReporteDelDia.UrlImagen" width="210" height="150" />
-                                        }
-                                    </div>
-                                    <div class="row form-inline">
-                                        <label class="align-content-lg-start" style="font-size:small">Probabilidad de precipitaciones:  </label>
-                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Precipitaciones.ToString()</label>
-                                        <label class="align-content-lg-start" style="font-size:small"> %</label>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-inline">
-                                            <label class="align-content-lg-start" style="font-size:small">Humedad: </label>
-                                            <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Humedad.ToString()</label>
-                                            <label class="align-content-lg-start" style="font-size:small"> %</label>
-                                        </div>
-                                    </div>
-                                    <div class="row form-inline">
-                                        <label class="align-content-lg-start" style="font-size:small">Viento: a </label>
-                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Vientos.ToString()</label>
-                                        <label class="align-content-lg-start" style="font-size:small"> Km/h</label>
-                                    </div>
+                                    @if (!string.IsNullOrEmpty(Model.ReporteDelDia.UrlImagen))
+                                    {
+                                        <img class="img-rounded text-center" alt="@Model.ReporteDelDia.DescripClima" src="@Model.ReporteDelDia.UrlImagen" width="100" height="100" />
+                                    }
+                                    <h6 class="card-text text-left" style="margin-top:2rem;font-size:small;">
+                                        Probabilidad de precipitaciones:  @Model.ReporteDelDia.Precipitaciones.ToString() %
+                                    </h6>
+                                    <h6 class="card-text text-left" style="font-size:small;">
+                                        Humedad: @Model.ReporteDelDia.Humedad.ToString() %
+                                    </h6>
+                                    <h6 class="card-text text-left" style="font-size:small;">
+                                        Vientos: a @Model.ReporteDelDia.Vientos.ToString() Km/h
+                                    </h6>
                                 }
                             </div>
                         </div>
@@ -128,35 +105,32 @@
                 </div>
             }
         </div>
-
     </div>
-    <hr />
-    <div class="container-fluid ">
-        <div class="row list-inline">
-            @{
-                if (Model.ListaPronosticos?.Count() > 0)
-                {
-                    for (int a = 0; a < 5; a++)
-                    {
-                        <div class="col-lg-15 border-right px-lg-5">
-                            <div class="row align-content-lg-center">
-                                <label class="align-content-lg-center">@Model.ListaPronosticos[a].NombreDelDia</label>
-                            </div>
-                            <div class="row align-content-center">
-                                <img class="img-rounded" alt="@Model.ListaPronosticos[a].DescripClima" src=@Model.ListaPronosticos[a].UrlImagen  width="160" height="90"/>
-                            </div>
-                            <div class="form-inline align-content-center">
-                                <label class="align-content-lg-center" style="font-size:small">@Model.ListaPronosticos[a].TemperaturaC.ToString()</label>
-                                <label class="align-content-lg-center" style="font-size:small"> °C</label>
-                            </div>
-                            <div class="form-inline align-content-center">
-                                <label class="align-content-lg-center" style="font-size:small">@Model.ListaPronosticos[a].TemperaturaF.ToString()</label>
-                                <label class="align-content-lg-center" style="font-size:small"> °F</label>
-                            </div>
+
+    <div class="row" style="margin-top: 1rem;">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row justify-content-between">
+                            @{
+                                if (Model.ListaPronosticos?.Count() > 0)
+                                {
+                                    for (int a = 0; a < 5; a++)
+                                    {
+                                        <div class="col-sm-2 border-right">
+                                            <h5 class="card-title" style="text-align:left">@Model.ListaPronosticos[a].NombreDelDia</h5>
+                                            <img class="img-rounded" style="text-align:right" alt="@Model.ListaPronosticos[a].DescripClima" src=@Model.ListaPronosticos[a].UrlImagen width="80" height="80" />
+                                            <h5 class="card-title" style="text-align: left; margin-top: 3rem;font-size:small;">@Model.ListaPronosticos[a].TemperaturaC.ToString() °C</h5>
+                                            <small class="text-muted" style="text-align:left; margin-top: 1rem;">@Model.ListaPronosticos[a].TemperaturaF.ToString() °F</small>
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
-                    }
-                }
-            }
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
