@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj": {}
+    "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj": {
+    "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
+        "projectUniqueName": "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
         "projectName": "WA_Challenge",
-        "projectPath": "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
+        "projectPath": "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\WA_Challenge.csproj",
         "packagesPath": "C:\\Users\\TUAREG\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TUAREG\\Desktop\\pruebas challenge\\WA_Challenge\\WA_Challenge\\obj\\",
+        "outputPath": "F:\\DESARROLLOS\\Challenge American Virtual\\WA_Challenge\\WA_Challenge\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
