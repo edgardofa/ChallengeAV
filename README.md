@@ -22,6 +22,9 @@ NOTA: Teniendo en cuenta que estos proyectos son unos ejercicios, hay algunas pa
 Es una BD de SQLite3 que se genero con CodeFirst de EntityFramework.Core; los datos que contiene se 
 generaron con unos procesos que se encuentran en el controlador de la API (Aclaración: esos procesos no deben estar alli,
 solo los deje por si en algún momento se quiere saber de donde salieron los datos)
+
+En la carpeta Scripts BD SQLServer se encuentran los scripts para generar las 3 tablas que usa la API,
+por ejemplo en un servidor Sql Server
 **************************************************************************************************************************
 
 
