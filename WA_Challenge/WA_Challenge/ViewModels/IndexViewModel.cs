@@ -17,5 +17,6 @@ namespace WA_Challenge.ViewModels
         public string DescripCiudad { get; set; }
         public string Ident_CiudadSelect { get; set; }
         public int Ident_PaisSelect { get; set; }
+        public string MensajeError { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 }
 
 <div class="container">
+    <input type="hidden"id="mensaje" asp-for="MensajeError" />
     <div class="row border-bottom px-2">
         <div class="col-lg-12 ">
             <div class="row justify-content-lg-center">
@@ -145,9 +146,13 @@
             $('#paisSelect').change(function () {
                 fillCombo("ciudades", $('#paisSelect').val());
             });
+            if ($('#mensaje').val().length > 0 ) {
+                alert($('#mensaje').val());
+            };
         });
         //FUNCION PARA COMPLETAR CUIDADES SEGUN PAIS SELECCIONADO **************   
         function fillCombo(updateId, value) {
+
             var formData = {
                 paisId: value
             };
