@@ -23,7 +23,10 @@ namespace WA_Challenge.Controllers
         //_________________________________________________________________________________________________
         public async Task<IActionResult> Index()
         {
+            //Genera un nuevo Modelo para la vista
             IndexViewModel model = new IndexViewModel();
+
+            //Llama al proceso que inicializa el modelo y carga la lista de Paises
             model = await GenerarViewModelInicio();
             return View(model);
         }
@@ -40,9 +43,13 @@ namespace WA_Challenge.Controllers
         }
         //_________________________________________________________________________________________________
         //--------------------------------------------------------------------------------------------------------
+        //Recibe 1 peticion por ajax de la vista con el parametro paisId seleccionado en la vista
+        //Llama al proceso correspondiente en la ServicioDeDatos para ejecute la consulta a la api
+        //recibe 1 lista de Ciudades y 1 codigo de respuesta del request echo a la api
+        //devuelve a la funcion ajax de la vista la lista de Ciudades serializadas en formato json
         [HttpPost]
         [ActionName("CiudadPorPais")]
-        public async Task<ActionResult> GetListCiudadesxPais(int paisId)
+        public async Task<IActionResult> GetListCiudadesxPais(int paisId)
         {
             List<Ciudades> respuesta = new List<Ciudades>();
             try
@@ -60,19 +67,47 @@ namespace WA_Challenge.Controllers
 
         }
         //--------------------------------------------------------------------------------------------------------
-         
+        //Recibe de la vista 1 string con el id de la ciudad seleccionada en el select de ciudades
+        //Parsea el string para convertirlo en entero y asi verificar que sea un dato valido
+        //Si el dato es valido llama al proceso que carga los datos
+        //Si NO es valido redirige al Index con un modelo solo con la lista de paises
+        //(Aqui hay que determinar como informar al usuario)
         [HttpPost]
-        public async Task<ActionResult> ConsultarClima(string ciudades)
+        public async Task<IActionResult> ConsultarClima(string ciudades)
         {
-            int id = Convert.ToInt32(ciudades);
             IndexViewModel modeloView = new IndexViewModel();
-            if (id == 0) { return View("Index", modeloView); }
-            modeloView = await GenerarViewModelDatos(id);
+            int id = 0;
+            bool res = Int32.TryParse(ciudades, out id);
+            if (res)
+            {
+                if(id != 0) 
+                { 
+                    modeloView = await GenerarViewModelDatos(id); 
+                }
+                else 
+                {
+                    modeloView = await GenerarViewModelInicio();
+                    modeloView.MensajeError = "No se pudo determinar la Ciudad seleccionada";
+                    return View("Index", modeloView); 
+                }
+            }
+            else
+            {
+                modeloView = await GenerarViewModelInicio();
+                modeloView.MensajeError = "No se pudo realizar la Ciudad seleccionada";
+                return View("Index", modeloView);
+            }
+            
             return View("Index", modeloView);
         }
 
         //--------------------------------------------------------------------------------------------------------
         #region METODOS
+        /// <summary>
+        /// Inicializa las propiedades del modelo todas en su valor por defecto menos la lista de paises
+        /// Devuelve el modelo para Index o redirige a la pagina de error 
+        /// </summary>
+        /// <returns></returns>
         private async Task<IndexViewModel> GenerarViewModelInicio()
         {
             IndexViewModel modelo = new IndexViewModel();
@@ -81,12 +116,15 @@ namespace WA_Challenge.Controllers
                 modelo.DescripCiudad = string.Empty;
                 modelo.DescripPais = string.Empty;
                 modelo.ListaCiudades = new List<SelectListItem>();
+                modelo.MensajeError = string.Empty;
                 //....................................................
                 modelo.ListaPaises = new List<SelectListItem>();
                 //...................................................
                 ServicioDeDatos _servicios = new ServicioDeDatos();
                 List<Paises> listaPaises = new List<Paises>();
+                //Llama al metod privado que interactua con la clase ServicioDeDatos
                 listaPaises =await ConsultarPaises();
+                //Si recibe una lista de paises completa la collection SelectListItem de paises
                 if (listaPaises?.Count > 0)
                 {
                     foreach(Paises pais in listaPaises)
@@ -131,8 +169,10 @@ namespace WA_Challenge.Controllers
         {
             ServicioDeDatos _servicios = new ServicioDeDatos();
             IndexViewModel modelo = new IndexViewModel();
+            
             try
             {
+                modelo.MensajeError = string.Empty;
                 Ciudades respuesta = new Ciudades();
                 respuesta = await _servicios.ConsultarClimaByCiudad(idCiudad);
                 if(_servicios.RespuestaServidor== System.Net.HttpStatusCode.OK)
