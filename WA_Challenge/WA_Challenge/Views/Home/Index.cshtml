@@ -1,0 +1,217 @@
+﻿@model IndexViewModel
+@{
+
+    ViewData["Title"] = "";
+}
+
+<div class="container">
+    <div class="row border-bottom px-2">
+        <div class="col-lg-12 ">
+            <div class="row justify-content-lg-center">
+                <h3 class="font-weight-bold">SERVICIO DEL CLIMA</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class="col-lg-6">
+            <div class="card table-bordered" style="height: 20rem;">
+                <div class="card-header align-content-center" style="height: 3rem;">
+                    <p class="text-center">Selecciona la zona</p>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-area="" asp-controller="Home" asp-action="ConsultarClima">
+                        <div class="row">
+                            @Html.Label("NombrePais", "País")
+                        </div>
+                        <div class="row">
+                            <select class="form-control mw-100 w-100 border-select p-1" id="paisSelect" name="paisSelect" selected="selected">
+                                @{
+                                    if (Model.ListaPaises?.Count > 0)
+                                    {
+                                        <option value="NN"> -- Selecciona un país </option>
+                                        foreach (SelectListItem pais in Model.ListaPaises)
+                                        {
+                                            <option value="@pais.Value">@pais.Text</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="NN"> -- Sin Datos </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <br />
+                        <div class="row">
+                            @Html.Label("NombreCiudad", "Ciudad")
+                        </div>
+
+                        <div class="row">
+                            <select name="ciudades" class="form-control mw-100 w-100 border-select top-10" id="ciudades" selected="selected">
+                            </select><br />
+                        </div>
+                        <br />
+                        <div class="text-center pt-lg-0">
+                            <input class="btn btn-primary btn-block text-white" style="background-color:coral" type="submit" asp-action="ConsultarClima" asp-controller="Home" asp-route-id="ciudades" value="Buscar" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            @if (!string.IsNullOrEmpty(Model.Ident_CiudadSelect))
+            {
+                <div class="card table-bordered " style="height: 18rem;">
+                    <div class="card-header justify-content-lg-center" style="height: 3rem;">
+                        <p class="text-center">Reporte del día</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <label class="align-content-lg-start" style="font-size:small">@Model.DescripPais</label>
+                                </div>
+                                <div class="row">
+                                    <label class="align-content-lg-start" style="font-size:small">@Model.DescripCiudad</label>
+                                </div>
+                                @if (Model.ReporteDelDia != null)
+                                {
+                                    <div class="row">
+                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.NombreDelDia</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.DescripClima</label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label class="align-content-lg-start" style="font-size:x-large">@Model.ReporteDelDia.TemperaturaC.ToString()</label>
+                                        <label class="align-content-lg-start" style="font-size:small"> °C</label>
+                                    </div>
+                                    <div class="form-inline">
+                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.TemperaturaF.ToString()</label>
+                                        <label class="align-content-lg-start" style="font-size:small"> °F</label>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="col-lg-6">
+                                @if (Model.ReporteDelDia != null)
+                                {
+                                    <div>
+                                        @if (!string.IsNullOrEmpty(Model.ReporteDelDia.UrlImagen))
+                                        {
+                                            <img class="img-rounded" alt="@Model.ReporteDelDia.DescripClima" src="@Model.ReporteDelDia.UrlImagen" width="210" height="150" />
+                                        }
+                                    </div>
+                                    <div class="row form-inline">
+                                        <label class="align-content-lg-start" style="font-size:small">Probabilidad de precipitaciones:  </label>
+                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Precipitaciones.ToString()</label>
+                                        <label class="align-content-lg-start" style="font-size:small"> %</label>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-inline">
+                                            <label class="align-content-lg-start" style="font-size:small">Humedad: </label>
+                                            <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Humedad.ToString()</label>
+                                            <label class="align-content-lg-start" style="font-size:small"> %</label>
+                                        </div>
+                                    </div>
+                                    <div class="row form-inline">
+                                        <label class="align-content-lg-start" style="font-size:small">Viento: a </label>
+                                        <label class="align-content-lg-start" style="font-size:small">@Model.ReporteDelDia.Vientos.ToString()</label>
+                                        <label class="align-content-lg-start" style="font-size:small"> Km/h</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <hr />
+    <div class="container-fluid ">
+        <div class="row list-inline">
+            @{
+                if (Model.ListaPronosticos?.Count() > 0)
+                {
+                    for (int a = 0; a < 5; a++)
+                    {
+                        <div class="col-lg-15 border-right px-lg-5">
+                            <div class="row align-content-lg-center">
+                                <label class="align-content-lg-center">@Model.ListaPronosticos[a].NombreDelDia</label>
+                            </div>
+                            <div class="row align-content-center">
+                                <img class="img-rounded" alt="@Model.ListaPronosticos[a].DescripClima" src=@Model.ListaPronosticos[a].UrlImagen  width="160" height="90"/>
+                            </div>
+                            <div class="form-inline align-content-center">
+                                <label class="align-content-lg-center" style="font-size:small">@Model.ListaPronosticos[a].TemperaturaC.ToString()</label>
+                                <label class="align-content-lg-center" style="font-size:small"> °C</label>
+                            </div>
+                            <div class="form-inline align-content-center">
+                                <label class="align-content-lg-center" style="font-size:small">@Model.ListaPronosticos[a].TemperaturaF.ToString()</label>
+                                <label class="align-content-lg-center" style="font-size:small"> °F</label>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+            $('#paisSelect').change(function () {
+                fillCombo("ciudades", $('#paisSelect').val());
+            });
+        });
+        //FUNCION PARA COMPLETAR CUIDADES SEGUN PAIS SELECCIONADO **************   
+        function fillCombo(updateId, value) {
+            var formData = {
+                paisId: value
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/CiudadPorPais",
+                data: formData
+            }).done(function (Data) {
+                const respuesta = JSON.parse(Data);
+                $("#" + updateId ).empty();
+                $("#" + updateId).append("<option value='0' id='0'>" +' --- Seleccione una ciudad ---' +
+                     "</option>");
+                $.each(respuesta, function (i, item) {
+                    $("#" + updateId).append("<option value='" + item.Id + "' id='"
+                        + item.Id + "'>" + item.NombreCiudad
+                        + "</option>");
+                });
+            }).fail(function (Data) {
+                alert("No se pudo actualizar la lista de Ciudades");
+            });
+        }
+    //*************************************************************************
+        function Consultar() {
+            var formData = {
+                ciudadId: $('#ciudades').val()
+            };
+            $.ajax({
+                method: "POST",
+                url: "/Home/ConsultarClima",
+                data: formData
+            }).done(function (Data) {
+                alert("Consulta Completada");
+                });
+        //    .fail(function (Data) {
+        //        alert("No se pudo actualizar la lista de Ciudades");
+        //    });
+        }
+    //*************************************************************************
+    </script>
+
+}
